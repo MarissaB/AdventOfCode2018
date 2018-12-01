@@ -10,16 +10,10 @@
         <StackPanel Orientation="Vertical">
             <Label Content="Click each button to access a challenge and solution."/>
             <StackPanel Orientation="Horizontal" Margin="5, 5, 5, 5" HorizontalAlignment="Center">
-                <Button Name="Day1Part1Button" Height="30" Width="150" Margin="5, 5, 5, 5">
+                <Button Name="Day1Button" Height="30" Width="150" Margin="5, 5, 5, 5" Click="Day1Button_Click">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xE8EF;" FontSize="20" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets"/>
-                        <Label Content="Day 1 - Part 1"/>
-                    </StackPanel>
-                </Button>
-                <Button Name="Day1Part2Button" Height="30" Width="150" Margin="5, 5, 5, 5">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xE8EF;" FontSize="20" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets"/>
-                        <Label Content="Day 1 - Part 2"/>
+                        <Label Content="Day 1"/>
                     </StackPanel>
                 </Button>
             </StackPanel>

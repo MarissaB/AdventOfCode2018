@@ -100,5 +100,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Day 1\Part1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Day 1\Part2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Day 1\input.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
