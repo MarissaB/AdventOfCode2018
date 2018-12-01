@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdventOfCode2018"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Advent of Code 2018" Height="450" Width="400">
+    <Grid Margin="10, 10, 10, 10">
+        <StackPanel Orientation="Vertical">
+            <Label Content="Click each button to access a challenge and solution."/>
+            <StackPanel Orientation="Horizontal" Margin="5, 5, 5, 5" HorizontalAlignment="Center">
+                <Button Name="Day1Part1Button" Height="30" Width="150" Margin="5, 5, 5, 5">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE8EF;" FontSize="20" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets"/>
+                        <Label Content="Day 1 - Part 1"/>
+                    </StackPanel>
+                </Button>
+                <Button Name="Day1Part2Button" Height="30" Width="150" Margin="5, 5, 5, 5">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE8EF;" FontSize="20" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets"/>
+                        <Label Content="Day 1 - Part 2"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>
