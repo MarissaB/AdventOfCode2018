@@ -27,6 +27,12 @@
                     <Label Content="Day 3"/>
                 </StackPanel>
             </Button>
+            <Button Name="Day4Button" Height="30" Width="150" Margin="5, 5, 5, 5" Click="Day4Button_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xEA18;" FontSize="20" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets"/>
+                    <Label Content="Day 4"/>
+                </StackPanel>
+            </Button>
         </StackPanel>
     </Grid>
 </Window>

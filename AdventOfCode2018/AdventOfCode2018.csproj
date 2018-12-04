@@ -66,6 +66,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Day 4\Day 4.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -84,6 +88,10 @@
     <Compile Include="Day 3\Day 3.xaml.cs">
       <DependentUpon>Day 3.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Day 4\Day 4.xaml.cs">
+      <DependentUpon>Day 4.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Day 4\Guard.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -141,6 +149,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Day 3\Part2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Day 4\input.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Day 4\Part1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Day 4\Part2.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
