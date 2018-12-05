@@ -25,7 +25,7 @@
 
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="5, 5, 5, 5">
             <Button Name="CalculatePart2" Content="Calculate Part 2" Height="30" Margin="10, 10 10, 10" Click="CalculatePart2_Click"/>
-            <TextBlock Name="Question2Text" TextWrapping="Wrap" Text="What is the ID of the guard you chose multiplied by the minute you chose? "/>
+            <TextBlock Name="Question2Text" TextWrapping="Wrap" Text="What is the length of the shortest polymer you can produce by removing all units of exactly one type and fully reacting the result? "/>
         </StackPanel>
         <ScrollViewer Grid.Column="1" Grid.Row="1">
             <TextBlock Name="Part2Logging" Grid.Column="1" Grid.Row="1" Padding="5, 5, 5, 5"/>

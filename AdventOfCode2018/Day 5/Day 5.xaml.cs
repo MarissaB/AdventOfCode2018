@@ -42,7 +42,7 @@ namespace AdventOfCode2018
                 try
                 {
                     inputString = ReadInput(filename);
-                    Part1Logging.Text += "Final Polymer: " + ReactPolymer(inputString);
+                    Question1Text.Text += "Final Polymer: " + ReactPolymer(inputString).Length;
                 }
                 catch
                 {
@@ -55,7 +55,7 @@ namespace AdventOfCode2018
         {
             // We change file extension here to make sure it's a .tsv file.
             string line = File.ReadAllText(Path.ChangeExtension(fileName, ".txt"));
-            Part1Logging.Text += line;
+            Part1Logging.Text += line + "\r\n";
 
             return line;
         }
@@ -64,7 +64,6 @@ namespace AdventOfCode2018
         {
             do
             {
-                Part1Logging.Text += polymer + "\r\n";
                 polymer = RemoveReactions(polymer);
             }
             while (CheckPolymerForReactions(polymer));
@@ -105,9 +104,16 @@ namespace AdventOfCode2018
             char[] polymerUnits = polymer.ToArray();
             string result = string.Empty;
 
-            for (int count = 0; count < polymerUnits.Length - 1; count++)
+            for (int count = 0; count < polymerUnits.Length; count++)
             {
                 char current = polymerUnits[count];
+
+                if (count + 1 == polymerUnits.Length)
+                {
+                    result += current;
+                    return result;
+                }
+
                 char after = polymerUnits[count + 1];
                 bool currentUpper = char.IsUpper(current);
                 bool afterUpper = char.IsUpper(after);
@@ -119,6 +125,10 @@ namespace AdventOfCode2018
                     if (currentUpper == afterUpper) // Same case, no reaction
                     {
                         result += current;
+                    }
+                    else
+                    {
+                        count++;
                     }
                 }
                 else // Different letter, no reaction
@@ -135,7 +145,53 @@ namespace AdventOfCode2018
 
         private void CalculatePart2_Click(object sender, RoutedEventArgs e)
         {
+            string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            char[] alphaUpper = alpha.ToUpper().ToCharArray();
+            char[] alphaLower = alpha.ToLower().ToCharArray();
+            string winningLetter = string.Empty;
+            int shortestCount = inputString.Length;
 
+            for (int count = 0; count < alpha.Length; count++)
+            {
+                string letterUpper = alphaUpper[count].ToString();
+                string letterLower = alphaLower[count].ToString();
+                string letters = letterUpper + "/" + letterLower;
+
+                string testPolymer = inputString.Replace(letterUpper, "");
+                testPolymer = testPolymer.Replace(letterLower, "");
+
+                int testCount = ReactPolymer(testPolymer).Length;
+
+                Thread.Sleep(100);
+                Part2Logging.Text += "Testing " + letters + ". Result: " + testCount + "\r\n";
+                DoEvents();
+                
+
+                if (testCount < shortestCount)
+                {
+                    winningLetter = letters;
+                    shortestCount = testCount;
+                }
+
+            }
+
+            Part2Logging.Text += "Best result: " + shortestCount + " from " + winningLetter;
+        }
+
+        private void DoEvents()
+        {
+            DispatcherFrame frame = new DispatcherFrame(true);
+            Dispatcher.CurrentDispatcher.BeginInvoke
+            (
+            DispatcherPriority.Background,
+            (SendOrPostCallback)delegate (object arg)
+            {
+                var f = arg as DispatcherFrame;
+                f.Continue = false;
+            },
+            frame
+            );
+            Dispatcher.PushFrame(frame);
         }
     }
 }
