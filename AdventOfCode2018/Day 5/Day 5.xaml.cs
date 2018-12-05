@@ -42,14 +42,11 @@ namespace AdventOfCode2018
                 try
                 {
                     inputString = ReadInput(filename);
-                    /*sortedStrings = SortInput(inputStrings);
-                    GetGuards(sortedStrings);
-                    Guard sleepyGuard = FindSleepyGuard(guards);
-                    Question1Text.Text */
+                    Part1Logging.Text += "Final Polymer: " + ReactPolymer(inputString);
                 }
                 catch
                 {
-                    MessageBox.Show("Failed to import guard observations file.", "ERROR: INVALID FILE", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Failed to import polymer file.", "ERROR: INVALID FILE", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -63,8 +60,82 @@ namespace AdventOfCode2018
             return line;
         }
 
+        private string ReactPolymer(string polymer)
+        {
+            do
+            {
+                Part1Logging.Text += polymer + "\r\n";
+                polymer = RemoveReactions(polymer);
+            }
+            while (CheckPolymerForReactions(polymer));
+
+            return polymer;
+        }
+
+        private bool CheckPolymerForReactions(string polymer)
+        {
+            char[] polymerUnits = polymer.ToArray();
+
+            for (int count = 0; count < polymerUnits.Length-1; count++)
+            {
+                char current = polymerUnits[count];
+                char after = polymerUnits[count + 1];
+
+                bool equal = char.ToUpperInvariant(after) == char.ToUpperInvariant(current);
+
+                if (equal) // If this char and the next are the same letter...
+                {
+                    if (char.IsUpper(current) && char.IsLower(after))
+                    {
+                        return true; // ...this char and next are opposite cases, which is a reaction.
+                    }
+
+                    if (char.IsLower(current) && char.IsUpper(after))
+                    {
+                        return true; // ...this char and next are opposite cases, which is a reaction.
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private string RemoveReactions(string polymer)
+        {
+            char[] polymerUnits = polymer.ToArray();
+            string result = string.Empty;
+
+            for (int count = 0; count < polymerUnits.Length - 1; count++)
+            {
+                char current = polymerUnits[count];
+                char after = polymerUnits[count + 1];
+                bool currentUpper = char.IsUpper(current);
+                bool afterUpper = char.IsUpper(after);
+
+                bool equal = char.ToUpperInvariant(after) == char.ToUpperInvariant(current);
+
+                if (equal) // Same letter
+                {
+                    if (currentUpper == afterUpper) // Same case, no reaction
+                    {
+                        result += current;
+                    }
+                }
+                else // Different letter, no reaction
+                {
+                    result += current;
+                }
+
+            }
+
+            return result;
+        }
+
+
+
         private void CalculatePart2_Click(object sender, RoutedEventArgs e)
         {
 
         }
+    }
 }

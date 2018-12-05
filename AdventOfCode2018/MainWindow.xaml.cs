@@ -35,5 +35,11 @@ namespace AdventOfCode2018
             Day_4 day4 = new Day_4();
             day4.Show();
         }
+
+        private void Day5Button_Click(object sender, RoutedEventArgs e)
+        {
+            Day_5 day5 = new Day_5();
+            day5.Show();
+        }
     }
 }
