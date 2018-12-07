@@ -9,14 +9,18 @@ namespace AdventOfCode2018
     public class Step
     {
         public char Letter { get; set; }
-        public List<char> Before { get; set; }
+        public List<char> After { get; set; }
+        public bool Visited { get; set; }
+        public bool Finished { get; set; }
 
         public Step() { }
 
         public Step(char input)
         {
             Letter = input;
-            Before = new List<char>();
+            After = new List<char>();
+            Visited = false;
+            Finished = false;
         }
     }
 }

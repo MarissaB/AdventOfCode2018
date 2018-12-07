@@ -1,8 +1,11 @@
-﻿using System;
+﻿using QuickGraph;
+using QuickGraph.Algorithms.TopologicalSort;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
@@ -22,7 +25,9 @@ namespace AdventOfCode2018
         private string[] inputStrings;
         private List<string> sortedStrings;
         List<Step> stepList;
-        char starter;
+        Step starter;
+        Step ending;
+        string finalResult;
 
         private void LoadInput_Click(object sender, RoutedEventArgs e)
         {
@@ -47,7 +52,8 @@ namespace AdventOfCode2018
                     stepList = new List<Step>();
                     inputStrings = ReadInput(filename);
                     sortedStrings = SortInput(inputStrings);
-                    GetSteps(sortedStrings);
+                    //GetSteps(sortedStrings);
+                    Question1Text.Text += "\r\n" + LastShot(sortedStrings);
                 }
                 catch
                 {
@@ -68,37 +74,125 @@ namespace AdventOfCode2018
             List<string> sorted = new List<string>();
             sorted = rawInputs.OrderBy(n => n).ToList();
 
-            foreach (string input in sorted)
+            foreach (string sort in sorted)
             {
-                Part1Logging.Text += input + "\r\n";
+                Part1Logging.Text += sort + "\r\n";
             }
-
             return sorted;
         }
 
         private void GetSteps(List<string> sortedInputs)
         {
             Step currentStep = new Step();
-            List<char> beforeSteps = new List<char>();
-            List<char> afterSteps = new List<char>();
+            List<Step> beforeSteps = new List<Step>();
+            List<Step> afterSteps = new List<Step>();
 
             foreach (string input in sortedInputs)
             {
-                char letter = input[36];
-                char before = input[5];
+                Step after = GetStep(input[36]);
+                Step letter = GetStep(input[5]);
 
-                currentStep = GetStep(letter);
-                currentStep.Before.Add(before);
-                beforeSteps.Add(before);
-                afterSteps.Add(letter);
+                currentStep = letter;
+                currentStep.After.Add(after.Letter);
+
+                beforeSteps.Add(letter);
+                afterSteps.Add(after);
             }
 
             GetStarter(beforeSteps, afterSteps);
+            GetEnding(beforeSteps, afterSteps);
+
         }
 
-        private void GetStarter(List<char> after, List<char> before)
+        private string LastShot(List<string> sortedInputs)
         {
-            foreach (char letter in after)
+            var graph = new AdjacencyGraph<Letter, Edge<Letter>>();
+            List<char> alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToList();
+            alphabet.Reverse();
+            List<Letter> letterList = new List<Letter>();
+
+            foreach (char c in alphabet)
+            {
+                letterList.Add(new Letter(c));
+            }
+
+            graph.AddVertexRange(letterList);
+
+            foreach (string input in sortedInputs)
+            {
+                Letter addNew = letterList.Where(l => l.Char == input[5]).First();
+                Letter addNew2 = letterList.Where(o => o.Char == input[36]).First();
+
+                graph.AddEdge(new Edge<Letter>(addNew, addNew2));
+            }
+
+            var sort = new TopologicalSortAlgorithm<Letter, Edge<Letter>>(graph);
+            sort.Compute();
+
+            StringBuilder builder = new StringBuilder();
+            foreach (var item in sort.SortedVertices)
+            {
+                builder.Append(item.ToString());
+            }
+            var word = builder.ToString();
+
+            // bad == EUKGJYXNIFSTCQWLZMAVPORDBH
+
+            return word;
+        }
+
+        public class Letter
+        {
+            public char Char;
+
+            public Letter(char letter)
+            {
+                Char = letter;
+            }
+
+            public override string ToString()
+            {
+                return Char.ToString();
+            }
+
+        }
+
+        private Step GetStep(char letter)
+        {
+            int index = stepList.FindIndex(s => s.Letter == letter);
+
+            if (index >= 0) // Check if step already exists
+            {
+                return stepList[index]; // Return the found step
+            }
+            else
+            {
+                Step step = new Step(letter); // Make the new step, then return it
+                stepList.Add(step);
+
+                return step;
+            }
+        }
+
+        private void GetStarter(List<Step> before, List<Step> after)
+        {
+            foreach (Step step in before)
+            {
+                if (after.Contains(step))
+                {
+                    continue;
+                }
+                else
+                {
+                    starter = step;
+                    break;
+                }
+            }
+        }
+
+        private void GetEnding(List<Step> before, List<Step> after)
+        {
+            foreach (Step letter in after)
             {
                 if (before.Contains(letter))
                 {
@@ -106,35 +200,10 @@ namespace AdventOfCode2018
                 }
                 else
                 {
-                    starter = letter;
+                    ending = letter;
                     break;
                 }
             }
-        }
-
-        private Step GetStep(char letter)
-        {
-            Step step = new Step();
-            int index = stepList.FindIndex(s => s.Letter == letter);
-
-            if (index >= 0) // Check if step already exists
-            {
-                step = stepList[index]; // Return the found step
-            }
-            else
-            {
-                step = new Step(letter); // Make the new step, then return it
-                stepList.Add(step);
-            }
-
-            return step;
-        }
-
-        private List<Step> ParseInput(List<string> rawInput)
-        {
-            List<Step> steps = new List<Step>();
-
-            return steps;
         }
 
 
