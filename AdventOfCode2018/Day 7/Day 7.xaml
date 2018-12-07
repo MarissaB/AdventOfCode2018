@@ -1,0 +1,35 @@
+﻿<Window x:Class="AdventOfCode2018.Day_7"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Day 7" Height="450" Width="800">
+    <Grid Margin="10, 10, 10, 10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" Margin="5, 5, 5, 5">
+            <Button Name="LoadInput" Content="Load Input File" Height="30" Margin="10, 10 10, 10" Click="LoadInput_Click"/>
+            <TextBlock Name="Question1Text" TextWrapping="Wrap" Text="In what order should the steps in your instructions be completed? "/>
+        </StackPanel>
+        <ScrollViewer Grid.Column="0" Grid.Row="1">
+            <TextBlock Name="Part1Logging" Grid.Column="0" Grid.Row="1" Padding="5, 5, 5, 5" TextWrapping="Wrap"/>
+        </ScrollViewer>
+
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" Margin="5, 5, 5, 5">
+            <Button Name="CalculatePart2" Content="Calculate Part 2" Height="30" Margin="10, 10 10, 10" Click="CalculatePart2_Click"/>
+            <TextBlock Name="Question2Text" TextWrapping="Wrap" Text="What is the length of the shortest polymer you can produce by removing all units of exactly one type and fully reacting the result? "/>
+        </StackPanel>
+        <ScrollViewer Grid.Column="1" Grid.Row="1">
+            <TextBlock Name="Part2Logging" Grid.Column="1" Grid.Row="1" Padding="5, 5, 5, 5"/>
+        </ScrollViewer>
+
+    </Grid>
+</Window>

@@ -58,7 +58,6 @@ namespace AdventOfCode2018
         private List<Claim> ReadInput(string fileName)
         {
             List<Claim> claims = new List<Claim>();
-            // We change file extension here to make sure it's a .tsv file.
             string[] lines = File.ReadAllLines(Path.ChangeExtension(fileName, ".txt"));
 
             foreach (string line in lines)

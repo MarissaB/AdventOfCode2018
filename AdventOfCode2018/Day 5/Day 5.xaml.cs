@@ -53,7 +53,6 @@ namespace AdventOfCode2018
 
         private string ReadInput(string fileName)
         {
-            // We change file extension here to make sure it's a .tsv file.
             string line = File.ReadAllText(Path.ChangeExtension(fileName, ".txt"));
             Part1Logging.Text += line + "\r\n";
 
